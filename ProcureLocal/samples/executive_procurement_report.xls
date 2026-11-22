@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:x="urn:schemas-microsoft-com:office:excel"
+ xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+ xmlns:html="http://www.w3.org/TR/REC-html40">
+ <Styles>
+  <Style ss:ID="Default" ss:Name="Normal">
+   <Alignment ss:Vertical="Center"/>
+   <Borders/>
+   <Font ss:FontName="Segoe UI" ss:Size="10" ss:Color="#1E293B"/>
+   <Interior/>
+   <NumberFormat/>
+   <Protection/>
+  </Style>
+  <Style ss:ID="TitleStyle">
+   <Font ss:FontName="Segoe UI" ss:Size="14" ss:Color="#0F172A" ss:Bold="1"/>
+   <Alignment ss:Vertical="Center"/>
+  </Style>
+  <Style ss:ID="SubTitleStyle">
+   <Font ss:FontName="Segoe UI" ss:Size="10" ss:Color="#64748B" ss:Italic="1"/>
+   <Alignment ss:Vertical="Center"/>
+  </Style>
+  <Style ss:ID="HeaderStyle">
+   <Font ss:FontName="Segoe UI" ss:Size="10.5" ss:Color="#FFFFFF" ss:Bold="1"/>
+   <Interior ss:Color="#0F172A" ss:Pattern="Solid"/>
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#000000"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#000000"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="DataRow">
+   <Font ss:FontName="Segoe UI" ss:Size="9.5" ss:Color="#1E293B"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="DataRowAlt">
+   <Font ss:FontName="Segoe UI" ss:Size="9.5" ss:Color="#1E293B"/>
+   <Interior ss:Color="#F8FAFC" ss:Pattern="Solid"/>
+   <Borders>
+    <Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+    <Border ss:Position="Top" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/>
+   </Borders>
+  </Style>
+  <Style ss:ID="CurrencyStyle" ss:Parent="DataRow">
+   <NumberFormat ss:Format="#,##0.00"/>
+   <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
+  </Style>
+  <Style ss:ID="CurrencyStyleAlt" ss:Parent="DataRowAlt">
+   <NumberFormat ss:Format="#,##0.00"/>
+   <Alignment ss:Horizontal="Right" ss:Vertical="Center"/>
+  </Style>
+  <Style ss:ID="CenterStyle" ss:Parent="DataRow">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+  </Style>
+  <Style ss:ID="CenterStyleAlt" ss:Parent="DataRowAlt">
+   <Alignment ss:Horizontal="Center" ss:Vertical="Center"/>
+  </Style>
+  <Style ss:ID="BadgeGreen" ss:Parent="CenterStyle">
+   <Font ss:FontName="Segoe UI" ss:Size="9" ss:Color="#15803D" ss:Bold="1"/>
+   <Interior ss:Color="#DCFCE7" ss:Pattern="Solid"/>
+  </Style>
+  <Style ss:ID="BadgeBlue" ss:Parent="CenterStyle">
+   <Font ss:FontName="Segoe UI" ss:Size="9" ss:Color="#1D4ED8" ss:Bold="1"/>
+   <Interior ss:Color="#DBEAFE" ss:Pattern="Solid"/>
+  </Style>
+ </Styles>
+ <Worksheet ss:Name="Procurement Register">
+  <Table ss:DefaultRowHeight="20">
+   <Column ss:Width="110"/>
+   <Column ss:Width="260"/>
+   <Column ss:Width="120"/>
+   <Column ss:Width="70"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="120"/>
+   <Row ss:Height="26">
+    <Cell ss:MergeAcross="7" ss:StyleID="TitleStyle"><Data ss:Type="String">ITC Limited - Procurement Register</Data></Cell>
+   </Row>
+   <Row ss:Height="18">
+    <Cell ss:MergeAcross="7" ss:StyleID="SubTitleStyle"><Data ss:Type="String">Report Generated on: 31-Oct-2026 | Source: ProcureLocal Enterprise Database</Data></Cell>
+   </Row>
+   <Row ss:Height="10"/>
+   <Row ss:Height="24">
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Requisition Code</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Scope / Work Description</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Department</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Type</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Estimated Budget</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Current Stage</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Target Vendor</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Created Date</Data></Cell>
+   </Row>
+   <Row ss:Height="21">
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">PRC-0005-2026</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">Core Switch</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">mis it</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">CAPEX</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">123120.0</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">LOGIC</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">Competitive</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">2026-10-31</Data></Cell>
+   </Row>
+   <Row ss:Height="21">
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">PRC-0004-2026</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">Network Infrastructure Survey, Fiber Testing, Documentation &amp; Labeling</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">IT &amp; Network Infrastructure</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">REVENUE</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyleAlt"><Data ss:Type="Number">75000.0</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">LOGIC</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">Competitive</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">2026-09-02</Data></Cell>
+   </Row>
+   <Row ss:Height="21">
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">PRC-0002-2026</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">Switchs</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">mis</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">REVENUE</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">12030520.0</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">ORDER</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">Competitive</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">2026-10-31</Data></Cell>
+   </Row>
+   <Row ss:Height="21">
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">PRC-0001-2026</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">Substation Transformer Feeder Cables Replacement</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">Electrical &amp; Utilities</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">REVENUE</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyleAlt"><Data ss:Type="Number">380000.0</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">COMPLETED</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">Competitive</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">2026-10-31</Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+ <Worksheet ss:Name="Purchase Orders">
+  <Table ss:DefaultRowHeight="20">
+   <Column ss:Width="110"/>
+   <Column ss:Width="95"/>
+   <Column ss:Width="230"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="100"/>
+   <Column ss:Width="115"/>
+   <Column ss:Width="150"/>
+   <Column ss:Width="90"/>
+   <Row ss:Height="26">
+    <Cell ss:MergeAcross="7" ss:StyleID="TitleStyle"><Data ss:Type="String">ITC Limited - Official Purchase Orders</Data></Cell>
+   </Row>
+   <Row ss:Height="18">
+    <Cell ss:MergeAcross="7" ss:StyleID="SubTitleStyle"><Data ss:Type="String">GSTIN &amp; Indian Statutory Compliant Purchase Order Records</Data></Cell>
+   </Row>
+   <Row ss:Height="10"/>
+   <Row ss:Height="24">
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">PO Number</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">PO Date</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Vendor / Supplier Name</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Basic Taxable</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">GST Amount</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Landed Total</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Payment Terms</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Status</Data></Cell>
+   </Row>
+   <Row ss:Height="21">
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">PO-2026-0002</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">2026-10-31</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">Atlas Copco India Compressor Ltd</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">200000.0</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">36000.0</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">236000.0</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">30 days from GRN</Data></Cell>
+    <Cell ss:StyleID="BadgeGreen"><Data ss:Type="String">Issued</Data></Cell>
+   </Row>
+   <Row ss:Height="21">
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">PO-2026-0001</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">2026-10-31</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">Polycab Wires &amp; Cables Ltd</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyleAlt"><Data ss:Type="Number">310000.0</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyleAlt"><Data ss:Type="Number">55800.0</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyleAlt"><Data ss:Type="Number">365800.0</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">30 days from GRN</Data></Cell>
+    <Cell ss:StyleID="BadgeGreen"><Data ss:Type="String">Closed</Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+ <Worksheet ss:Name="3-Way Match &amp; Invoices">
+  <Table ss:DefaultRowHeight="20">
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="210"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="95"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="130"/>
+   <Row ss:Height="26">
+    <Cell ss:MergeAcross="8" ss:StyleID="TitleStyle"><Data ss:Type="String">ITC Limited - 3-Way Match Verification</Data></Cell>
+   </Row>
+   <Row ss:Height="18">
+    <Cell ss:MergeAcross="8" ss:StyleID="SubTitleStyle"><Data ss:Type="String">Automated Reconciliation: Purchase Order ↔ Store GRN Inward ↔ Vendor Invoice</Data></Cell>
+   </Row>
+   <Row ss:Height="10"/>
+   <Row ss:Height="24">
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Requisition</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">PO Number</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Vendor Name</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Invoice No</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Invoice Date</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Basic Amount</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Total Invoiced</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">3-Way Status</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Payment Status</Data></Cell>
+   </Row>
+   <Row ss:Height="21">
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">PRC-0001-2026</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">PO-2026-0001</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">Polycab Wires &amp; Cables Ltd</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">INV-POL-2026-088</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">2026-10-31</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">310000.0</Data></Cell>
+    <Cell ss:StyleID="CurrencyStyle"><Data ss:Type="Number">365800.0</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">MATCHED</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">Paid</Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+ <Worksheet ss:Name="Vendor Directory">
+  <Table ss:DefaultRowHeight="20">
+   <Column ss:Width="230"/>
+   <Column ss:Width="130"/>
+   <Column ss:Width="95"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="150"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="150"/>
+   <Row ss:Height="26">
+    <Cell ss:MergeAcross="7" ss:StyleID="TitleStyle"><Data ss:Type="String">ITC Limited - Vendor Master Directory</Data></Cell>
+   </Row>
+   <Row ss:Height="18">
+    <Cell ss:MergeAcross="7" ss:StyleID="SubTitleStyle"><Data ss:Type="String">Statutory MSME, GSTIN, Bank IFSC, and Contact Records</Data></Cell>
+   </Row>
+   <Row ss:Height="10"/>
+   <Row ss:Height="24">
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Vendor Name</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">GSTIN</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">PAN</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">MSME Category</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">City & State</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Bank Name</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">IFSC Code</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Email / Phone</Data></Cell>
+   </Row>
+   <Row ss:Height="21">
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">ANANT ENTERPRISES</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">27AABCA5678F1Z2</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">AABCA5678F</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">Non-MSME</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">India</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">—</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">—</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">sales@anantent.com +91 98220 33445</Data></Cell>
+   </Row>
+   <Row ss:Height="21">
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">Atlas Copco India Compressor Ltd</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">27AAACA9876E1Z4</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">AAACA9876E</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">Medium</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">India</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">Kotak Mahindra Bank</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">KKBK0000123</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">manoj.joshi@atlascopco.com +91 98220 54321</Data></Cell>
+   </Row>
+   <Row ss:Height="21">
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">DigitalTrack Solutions Pvt Ltd</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">27AABCD1234E1Z1</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">AABCD1234E</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">Non-MSME</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">India</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">—</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">—</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">sanjay@digitaltrack.in +91 98230 11223</Data></Cell>
+   </Row>
+   <Row ss:Height="21">
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">Larsen &amp; Toubro Electrical Systems</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">27AAACL0123B1Z2</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">AAACL0123B</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">Large</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">India</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">State Bank of India</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">SBIN0000456</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">amit.d@larsentoubro.com +91 98334 56789</Data></Cell>
+   </Row>
+   <Row ss:Height="21">
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">Polycab Wires &amp; Cables Ltd</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">24AAACP4321D1Z1</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">AAACP4321D</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">Large</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">India</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">Axis Bank</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">UTIB0000123</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">nitin.patel@polycab.com +91 98980 98765</Data></Cell>
+   </Row>
+   <Row ss:Height="21">
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">Schneider Electric India Pvt Ltd</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">29AAACS5678C1Z8</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">AAACS5678C</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">Large</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">India</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">Citibank</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">CITI0000002</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">pooja.iyer@se.com +91 97401 23456</Data></Cell>
+   </Row>
+   <Row ss:Height="21">
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">Siemens India Industrial Ltd</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">27AAACS1234A1Z5</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">AAACS1234A</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">Medium</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">India</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">HDFC Bank</Data></Cell>
+    <Cell ss:StyleID="CenterStyle"><Data ss:Type="String">HDFC0000123</Data></Cell>
+    <Cell ss:StyleID="DataRow"><Data ss:Type="String">rajesh.sharma@siemens.com +91 98201 12345</Data></Cell>
+   </Row>
+   <Row ss:Height="21">
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">WIZERTECH INFORMATICS PVT LTD</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">27AABCW9012G1Z3</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">AABCW9012G</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">Non-MSME</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">India</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">—</Data></Cell>
+    <Cell ss:StyleID="CenterStyleAlt"><Data ss:Type="String">—</Data></Cell>
+    <Cell ss:StyleID="DataRowAlt"><Data ss:Type="String">vikram@wizertech.com +91 98210 55667</Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+ <Worksheet ss:Name="Plant Asset Register">
+  <Table ss:DefaultRowHeight="20">
+   <Column ss:Width="110"/>
+   <Column ss:Width="200"/>
+   <Column ss:Width="150"/>
+   <Column ss:Width="105"/>
+   <Column ss:Width="130"/>
+   <Column ss:Width="130"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="110"/>
+   <Column ss:Width="140"/>
+   <Row ss:Height="26">
+    <Cell ss:MergeAcross="8" ss:StyleID="TitleStyle"><Data ss:Type="String">ITC Limited - Plant Fixed Asset Register</Data></Cell>
+   </Row>
+   <Row ss:Height="18">
+    <Cell ss:MergeAcross="8" ss:StyleID="SubTitleStyle"><Data ss:Type="String">Factory Asset Tagging, Capitalization &amp; Put-to-Use Master Register</Data></Cell>
+   </Row>
+   <Row ss:Height="10"/>
+   <Row ss:Height="24">
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Asset Tag Code</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Equipment Name</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Asset Category</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Capitalization Date</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Plant Location</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Asset Custodian</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Serial Number</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Capitalized Cost</Data></Cell>
+    <Cell ss:StyleID="HeaderStyle"><Data ss:Type="String">Status</Data></Cell>
+   </Row>
+  </Table>
+ </Worksheet>
+</Workbook>

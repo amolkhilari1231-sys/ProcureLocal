@@ -1,0 +1,213 @@
+(node:16148) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+node:events:497
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: listen EADDRINUSE: address already in use 0.0.0.0:3000
+    at Server.setupListenHandle [as _listen2] (node:net:1941:16)
+    at listenInCluster (node:net:1998:12)
+    at node:net:2207:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+Emitted 'error' event on Server instance at:
+    at emitErrorNT (node:net:1977:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+  code: 'EADDRINUSE',
+  errno: -4091,
+  syscall: 'listen',
+  address: '0.0.0.0',
+  port: 3000
+}
+
+Node.js v22.23.3
+(node:6912) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+================================================================
+  ProcureLocal v3 Enterprise Edition (SAP/Tally Grade)
+  Server Online: http://localhost:3001
+  Data Directory: C:\Users\Admin\Downloads\ProcureLocal (3)\ProcureLocal\DB
+  Default Admin Login: admin / admin123
+================================================================
+
+(node:15188) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+================================================================
+  ProcureLocal v3 Enterprise Edition (SAP/Tally Grade)
+  Server Online: http://localhost:3001
+  Data Directory: C:\Users\Admin\Downloads\ProcureLocal (3)\ProcureLocal\DB
+  Default Admin Login: admin / admin123
+================================================================
+
+(node:7020) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+================================================================
+  ProcureLocal v3 Enterprise Edition (SAP/Tally Grade)
+  Server Online: http://localhost:3002
+  Data Directory: C:\Users\Admin\Downloads\ProcureLocal (3)\ProcureLocal\DB
+  Default Admin Login: admin / admin123
+================================================================
+
+(node:8532) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+================================================================
+  ProcureLocal v3 Enterprise Edition (SAP/Tally Grade)
+  Server Online: http://localhost:3002
+  Data Directory: C:\Users\Admin\Downloads\ProcureLocal (3)\ProcureLocal\DB
+  Default Admin Login: admin / admin123
+================================================================
+
+(node:6276) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+================================================================
+  ProcureLocal v3 Enterprise Edition (SAP/Tally Grade)
+  Server Online: http://localhost:3002
+  Data Directory: C:\Users\Admin\Downloads\ProcureLocal (3)\ProcureLocal\DB
+  Default Admin Login: admin / admin123
+================================================================
+
+(node:16840) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+================================================================
+  ProcureLocal v3 Enterprise Edition (SAP/Tally Grade)
+  Server Online: http://localhost:3002
+  Data Directory: C:\Users\Admin\Downloads\ProcureLocal (3)\ProcureLocal\DB
+  Default Admin Login: admin / admin123
+================================================================
+
+Startup backup notice: output file already exists
+(node:3360) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+================================================================
+  ProcureLocal v3 Enterprise Edition (SAP/Tally Grade)
+  Server Online: http://localhost:3002
+  Data Directory: C:\Users\Admin\Downloads\ProcureLocal (3)\ProcureLocal\DB
+  Default Admin Login: admin / admin123
+================================================================
+
+Startup backup notice: output file already exists
+(node:9248) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+================================================================
+  ProcureLocal v3 Enterprise Edition (SAP/Tally Grade)
+  Server Online: http://localhost:3002
+  Data Directory: C:\Users\Admin\Downloads\ProcureLocal (3)\ProcureLocal\DB
+  Default Admin Login: admin / admin123
+================================================================
+
+(node:8048) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+================================================================
+  ProcureLocal v3 Enterprise Edition (SAP/Tally Grade)
+  Server Online: http://localhost:3002
+  Data Directory: C:\Users\Admin\Downloads\ProcureLocal (3)\ProcureLocal\DB
+  Default Admin Login: admin / admin123
+================================================================
+
+(node:11316) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+================================================================
+  ProcureLocal v3 Enterprise Edition (SAP/Tally Grade)
+  Server Online: http://localhost:3002
+  Data Directory: C:\Users\Admin\Downloads\ProcureLocal (3)\ProcureLocal\DB
+  Default Admin Login: admin / admin123
+================================================================
+
+Startup backup notice: output file already exists
+(node:19096) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+================================================================
+  ProcureLocal v3 Enterprise Edition (SAP/Tally Grade)
+  Server Online: http://localhost:3002
+  Data Directory: C:\Users\Admin\Downloads\ProcureLocal (3)\ProcureLocal\DB
+  Default Admin Login: admin / admin123
+================================================================
+
+[ProcureLocal] All UI windows closed (heartbeat timeout). Auto-stopping server.
+(node:5864) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+================================================================
+  ProcureLocal v3 Enterprise Edition (SAP/Tally Grade)
+  Server Online: http://localhost:3002
+  Data Directory: C:\Users\Admin\Downloads\ProcureLocal (3)\ProcureLocal\DB
+  Default Admin Login: admin / admin123
+================================================================
+
+[ProcureLocal] All UI windows closed (heartbeat timeout). Auto-stopping server.
+(node:18844) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+================================================================
+  ProcureLocal v3 Enterprise Edition (SAP/Tally Grade)
+  Server Online: http://localhost:3002
+  Data Directory: C:\Users\Admin\Downloads\ProcureLocal (3)\ProcureLocal\DB
+  Default Admin Login: admin / admin123
+================================================================
+
+[ProcureLocal] All UI windows closed (heartbeat timeout). Auto-stopping server.
+(node:16064) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+================================================================
+  ProcureLocal v3 Enterprise Edition (SAP/Tally Grade)
+  Server Online: http://localhost:3002
+  Data Directory: C:\Users\Admin\Downloads\ProcureLocal (3)\ProcureLocal\DB
+  Default Admin Login: admin / admin123
+================================================================
+
+[ProcureLocal] All UI windows closed (heartbeat timeout). Auto-stopping server.
+(node:10780) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+================================================================
+  ProcureLocal v3 Enterprise Edition (SAP/Tally Grade)
+  Server Online: http://localhost:3002
+  Data Directory: C:\Users\Admin\Downloads\ProcureLocal (3)\ProcureLocal\DB
+  Default Admin Login: admin / admin123
+================================================================
+
+[ProcureLocal] All UI windows closed (heartbeat timeout). Auto-stopping server.
+(node:17284) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+================================================================
+  ProcureLocal v3 Enterprise Edition (SAP/Tally Grade)
+  Server Online: http://localhost:3002
+  Data Directory: C:\Users\Admin\Downloads\ProcureLocal (3)\ProcureLocal\DB
+  Status: Active & Secure
+================================================================
+
+[ProcureLocal] All UI windows closed (heartbeat timeout). Auto-stopping server.
+(node:5796) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+================================================================
+  ProcureLocal v3 Enterprise Edition (SAP/Tally Grade)
+  Server Online: http://localhost:3002
+  Data Directory: C:\Users\Admin\Downloads\ProcureLocal (3)\ProcureLocal\DB
+  Status: Active & Secure
+================================================================
+
+[ProcureLocal] All UI windows closed (heartbeat timeout). Auto-stopping server.
+(node:13500) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+================================================================
+  ProcureLocal v3 Enterprise Edition (SAP/Tally Grade)
+  Server Online: http://localhost:3002
+  Data Directory: C:\Users\Admin\Downloads\ProcureLocal (3)\ProcureLocal\DB
+  Status: Active & Secure
+================================================================
+
+[ProcureLocal] All UI windows closed (heartbeat timeout). Auto-stopping server.

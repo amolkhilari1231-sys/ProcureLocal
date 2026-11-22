@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ENVELOPE>
+  <HEADER>
+    <TALLYREQUEST>Import Data</TALLYREQUEST>
+  </HEADER>
+  <BODY>
+    <IMPORTDATA>
+      <REQUESTDESC>
+        <REPORTNAME>Vouchers</REPORTNAME>
+      </REQUESTDESC>
+      <REQUESTDATA>
+        <TALLYMESSAGE xmlns:UDF="TallyUDF">
+          <VOUCHER VCHTYPE="Purchase Order" ACTION="Create">
+            <DATE>20261031</DATE>
+            <VOUCHERTYPENAME>Purchase Order</VOUCHERTYPENAME>
+            <VOUCHERNUMBER>PO-2026-0001</VOUCHERNUMBER>
+            <PARTYLEDGERNAME>Polycab Wires &amp; Cables Ltd</PARTYLEDGERNAME>
+            <BASICBUYERNAME>ITC Limited</BASICBUYERNAME>
+            <NARRATION>ProcureLocal PO: PO-2026-0001 | Terms: 30 days from GRN | Delivery: Within 7 days</NARRATION>
+            <ALLINVENTORYENTRIES.LIST>
+              <STOCKITEMNAME>4-Core 16 sq mm Armoured Copper Cable</STOCKITEMNAME>
+              <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+              <RATE>620.00/mtr</RATE>
+              <ACTUALQTY>500.0 mtr</ACTUALQTY>
+              <BILLEDQTY>500.0 mtr</BILLEDQTY>
+              <AMOUNT>-310000.00</AMOUNT>
+              <BATCHALLOCATIONS.LIST>
+                <GODOWNNAME>Main Location</GODOWNNAME>
+                <BATCHNAME>Primary Batch</BATCHNAME>
+                <AMOUNT>-310000.00</AMOUNT>
+                <ACTUALQTY>500.0 mtr</ACTUALQTY>
+                <BILLEDQTY>500.0 mtr</BILLEDQTY>
+              </BATCHALLOCATIONS.LIST>
+            </ALLINVENTORYENTRIES.LIST>
+            <LEDGERENTRIES.LIST>
+              <LEDGERNAME>Purchase Account</LEDGERNAME>
+              <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+              <AMOUNT>-310000.00</AMOUNT>
+            </LEDGERENTRIES.LIST>
+            <LEDGERENTRIES.LIST>
+              <LEDGERNAME>Input CGST</LEDGERNAME>
+              <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+              <AMOUNT>-27900.00</AMOUNT>
+            </LEDGERENTRIES.LIST>
+            <LEDGERENTRIES.LIST>
+              <LEDGERNAME>Input SGST</LEDGERNAME>
+              <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+              <AMOUNT>-27900.00</AMOUNT>
+            </LEDGERENTRIES.LIST>
+            <LEDGERENTRIES.LIST>
+              <LEDGERNAME>Polycab Wires &amp; Cables Ltd</LEDGERNAME>
+              <ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
+              <AMOUNT>365800.00</AMOUNT>
+            </LEDGERENTRIES.LIST>
+          </VOUCHER>
+        </TALLYMESSAGE>
+        <TALLYMESSAGE xmlns:UDF="TallyUDF">
+          <VOUCHER VCHTYPE="Purchase Order" ACTION="Create">
+            <DATE>20261031</DATE>
+            <VOUCHERTYPENAME>Purchase Order</VOUCHERTYPENAME>
+            <VOUCHERNUMBER>PO-2026-0002</VOUCHERNUMBER>
+            <PARTYLEDGERNAME>Atlas Copco India Compressor Ltd</PARTYLEDGERNAME>
+            <BASICBUYERNAME>ITC Limited</BASICBUYERNAME>
+            <NARRATION>ProcureLocal PO: PO-2026-0002 | Terms: 30 days from GRN | Delivery: Within 14 days</NARRATION>
+            <ALLINVENTORYENTRIES.LIST>
+              <STOCKITEMNAME>switch</STOCKITEMNAME>
+              <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+              <RATE>100000.00/nos</RATE>
+              <ACTUALQTY>2.0 nos</ACTUALQTY>
+              <BILLEDQTY>2.0 nos</BILLEDQTY>
+              <AMOUNT>-200000.00</AMOUNT>
+              <BATCHALLOCATIONS.LIST>
+                <GODOWNNAME>Main Location</GODOWNNAME>
+                <BATCHNAME>Primary Batch</BATCHNAME>
+                <AMOUNT>-200000.00</AMOUNT>
+                <ACTUALQTY>2.0 nos</ACTUALQTY>
+                <BILLEDQTY>2.0 nos</BILLEDQTY>
+              </BATCHALLOCATIONS.LIST>
+            </ALLINVENTORYENTRIES.LIST>
+            <LEDGERENTRIES.LIST>
+              <LEDGERNAME>Purchase Account</LEDGERNAME>
+              <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+              <AMOUNT>-200000.00</AMOUNT>
+            </LEDGERENTRIES.LIST>
+            <LEDGERENTRIES.LIST>
+              <LEDGERNAME>Input CGST</LEDGERNAME>
+              <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+              <AMOUNT>-18000.00</AMOUNT>
+            </LEDGERENTRIES.LIST>
+            <LEDGERENTRIES.LIST>
+              <LEDGERNAME>Input SGST</LEDGERNAME>
+              <ISDEEMEDPOSITIVE>Yes</ISDEEMEDPOSITIVE>
+              <AMOUNT>-18000.00</AMOUNT>
+            </LEDGERENTRIES.LIST>
+            <LEDGERENTRIES.LIST>
+              <LEDGERNAME>Atlas Copco India Compressor Ltd</LEDGERNAME>
+              <ISDEEMEDPOSITIVE>No</ISDEEMEDPOSITIVE>
+              <AMOUNT>236000.00</AMOUNT>
+            </LEDGERENTRIES.LIST>
+          </VOUCHER>
+        </TALLYMESSAGE>
+      </REQUESTDATA>
+    </IMPORTDATA>
+  </BODY>
+</ENVELOPE>
