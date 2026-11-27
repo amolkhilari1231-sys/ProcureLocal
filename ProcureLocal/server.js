@@ -412,6 +412,7 @@ function numToWordsINR(n) {
 }
 
 const money = n => '₹' + Number(n || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const inr = money;
 const esc = t => String(t ?? '').replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
 const nl = t => esc(t).replace(/\n/g, '<br>');
 const gt = (r, g) => (Number(r) || 0) * (1 + (Number(g) || 0) / 100);
@@ -1410,7 +1411,7 @@ function assetTagHtml(asset, po, proc, settings) {
             </tr>
             <tr>
               <th>Capitalized Book Value</th>
-              <td><b style="color:#0f172a; font-size:13px;">${inr(asset.cost || proc.est)}</b></td>
+              <td><b style="color:#0f172a; font-size:13px;">${money(asset.cost || proc.est)}</b></td>
               <th>Warranty Expiry Date</th>
               <td>${dmy(asset.warranty_expiry || '') || 'Standard 12 Months'}</td>
             </tr>
@@ -3121,12 +3122,23 @@ function act(p, a, j, u) {
 }
 
 // ---- Backup & Restore ----
-const stamp = () => new Date().toISOString().replace(/[-:T]/g, '').slice(0, 12);
+const stamp = () => {
+  const d = new Date();
+  return d.toISOString().replace(/[-:T.]/g, '').slice(0, 14) + '-' + String(d.getMilliseconds()).padStart(3, '0');
+};
 function backup(label) {
-  const n = 'backup-' + stamp() + (label ? '-' + label : '');
-  const d = path.join(BAK, n);
+  let n = 'backup-' + stamp() + (label ? '-' + label : '');
+  let d = path.join(BAK, n);
+  if (fs.existsSync(path.join(d, 'procure.db'))) {
+    n += '-' + Date.now();
+    d = path.join(BAK, n);
+  }
   fs.mkdirSync(d, { recursive: true });
-  db.exec(`VACUUM INTO '${path.join(d, 'procure.db').replace(/'/g, "''")}'`);
+  const targetDb = path.join(d, 'procure.db');
+  if (fs.existsSync(targetDb)) {
+    try { fs.unlinkSync(targetDb); } catch {}
+  }
+  db.exec(`VACUUM INTO '${targetDb.replace(/'/g, "''")}'`);
   if (S().backupDocs) fs.cpSync(DOCS, path.join(d, 'documents'), { recursive: true });
   const l = fs.readdirSync(BAK).filter(x => x.startsWith('backup-') && !x.includes('prerestore')).sort();
   while (l.length > S().backupKeep) fs.rmSync(path.join(BAK, l.shift()), { recursive: true, force: true });
@@ -3617,7 +3629,7 @@ const requestHandler = async (req, res) => {
 
     // Public / Auth routes
     if (P === '/api/login' && M === 'POST') {
-      const ip = req.socket.remoteAddress;
+      const ip = req.socket?.remoteAddress || req.headers['x-forwarded-for'] || '127.0.0.1';
       if ((fails.get(ip) || 0) >= 10) return send(res, 429, { error: 'Too many failed login attempts. Please wait 15 minutes.' });
       const r = one('select * from users where username=? and active=1', String(j.username || ''));
       if (!r || !chk(String(j.password || ''), r.pw)) {
@@ -3630,6 +3642,17 @@ const requestHandler = async (req, res) => {
       sessions.set(t, { id: r.id, username: r.username, name: r.name, role: r.role });
       audit(r, null, 'User signed in: ' + r.username);
       return send(res, 200, { ok: 1, user: { id: r.id, username: r.username, name: r.name, role: r.role } }, { 'Set-Cookie': `sid=${t}; HttpOnly; SameSite=Strict; Path=/` });
+    }
+
+    // Loopback backup trigger for local automated backup scripts (e.g. Backup-To-Remote.bat)
+    if (P === '/api/backups' && M === 'POST' && !u) {
+      const clientIp = req.socket?.remoteAddress || req.headers['x-forwarded-for'] || '';
+      const isLoopback = clientIp.includes('127.0.0.1') || clientIp === '::1' || clientIp === '::ffff:127.0.0.1';
+      if (isLoopback) {
+        const n = backup('manual-script');
+        audit(null, null, 'Local script triggered snapshot: ' + n);
+        return send(res, 200, { ok: 1, name: n });
+      }
     }
 
     if (!u) return send(res, 401, { error: 'Authentication required. Please sign in.' });
@@ -3647,7 +3670,7 @@ const requestHandler = async (req, res) => {
 
     if (P === '/api/me') return send(res, 200, { user: u, roles: ROLES, settings: S(), flow: FLOW });
     if (P === '/api/logout') {
-      sessions.delete(ck[1]);
+      if (ck && ck[1]) sessions.delete(ck[1]);
       return send(res, 200, { ok: 1 });
     }
     if (P === '/api/password' && M === 'POST') {
@@ -4094,7 +4117,9 @@ const requestHandler = async (req, res) => {
         fs.mkdirSync(del, { recursive: true });
         try { fs.renameSync(path.join(DOCS, p.code), path.join(del, p.code + '_' + stamp())); } catch {}
         run('delete from qitems where quote_id in (select id from quotes where proc_id=?)', p.id);
-        for (const t of ['quotes', 'items', 'comms', 'docs', 'approvals', 'pos', 'po_items', 'grns', 'grn_items', 'invoices', 'assets']) {
+        run('delete from po_items where po_id in (select id from pos where proc_id=?)', p.id);
+        run('delete from grn_items where grn_id in (select id from grns where proc_id=?)', p.id);
+        for (const t of ['quotes', 'items', 'comms', 'docs', 'approvals', 'pos', 'grns', 'invoices', 'assets']) {
           try { run(`delete from ${t} where proc_id=?`, p.id); } catch {}
         }
         run('delete from proc where id=?', p.id);
@@ -4683,6 +4708,7 @@ const requestHandler = async (req, res) => {
         run('delete from po_items where po_id=?', po.id);
         run('delete from assets where po_id=?', po.id);
         run('delete from pos where id=?', po.id);
+        run('update items set sap_no=null, sap_date=null where sap_no=?', po.po_no);
         const rem = one('select * from pos where proc_id=? order by id desc', p.id);
         if (rem) {
           run('update proc set po_no=?,po_date=? where id=?', rem.po_no, rem.po_date, p.id);
@@ -4750,6 +4776,12 @@ const requestHandler = async (req, res) => {
       if (M === 'DELETE') {
         verifySecurityDelete(u, j, adm, 'Store Inward (GRN) records');
         checkProcNotLocked(p, u);
+        const grnItems = all('select item_id, received_qty, accepted_qty from grn_items where grn_id=?', grn.id);
+        for (const gi of grnItems) {
+          if (gi.item_id) {
+            run('update items set received_qty=max(0, coalesce(received_qty,0)-?), accepted_qty=max(0, coalesce(accepted_qty,0)-?) where id=?', +gi.received_qty || 0, +gi.accepted_qty || 0, gi.item_id);
+          }
+        }
         run('delete from grn_items where grn_id=?', grn.id);
         run('delete from grns where id=?', grn.id);
         if (!one('select 1 from grns where proc_id=?', p.id)) {
@@ -5178,14 +5210,17 @@ const requestHandler = async (req, res) => {
         throw E('Items are locked after the logic note stage');
       }
       let n = 0;
-      for (const i of j.items || []) {
+      let lastItemId = null;
+      const itemsList = Array.isArray(j.items) ? j.items : (j.name ? [j] : (j.items || []));
+      for (const i of itemsList) {
         if (!i.name || !(+i.qty > 0)) continue;
-        run('insert into items(proc_id,name,descr,model,qty,unit,hsn,citpc_rate,last_date) values(?,?,?,?,?,?,?,?,?)',
+        const resItm = run('insert into items(proc_id,name,descr,model,qty,unit,hsn,citpc_rate,last_date) values(?,?,?,?,?,?,?,?,?)',
           p.id, i.name, i.descr || '', i.model || '', +i.qty, i.unit || 'nos', i.hsn || '', +i.citpc_rate || null, i.last_date || null);
+        lastItemId = Number(resItm.lastInsertRowid);
         n++;
       }
       audit(u, p.id, n + ' item(s) added');
-      return send(res, 200, { n });
+      return send(res, 200, { n, id: lastItemId });
     }
 
     if ((m = P.match(/^\/api\/items\/(\d+)$/))) {
@@ -5456,11 +5491,13 @@ const requestHandler = async (req, res) => {
         }
 
         // Security Check 2: Administrator password verification
-        if (j.password) {
-          const uRec = one('select pw from users where id=?', u.id);
-          if (!uRec || !chk(String(j.password), uRec.pw)) {
-            throw E('Security Verification Failed: Invalid Administrator password.', 401);
-          }
+        const password = String(j.password || '').trim();
+        if (!password) {
+          throw E('Security Verification Failed: Administrator password is required.', 401);
+        }
+        const uRec = one('select pw from users where id=?', u.id);
+        if (!uRec || !chk(password, uRec.pw)) {
+          throw E('Security Verification Failed: Invalid Administrator password.', 401);
         }
 
         // Security Check 3: Active Requisition and PO dependency protection
@@ -5574,7 +5611,7 @@ const requestHandler = async (req, res) => {
     if (P === '/api/export/tally') {
       const { execFile } = require('child_process');
       const pyScript = path.join(__dirname, 'python', 'tally_bridge.py');
-      return execFile('python', [pyScript, '--stdout'], { maxBuffer: 10 * 1024 * 1024 }, (err, stdout) => {
+      return execFile('python', [pyScript, '--stdout', '--db', DBF], { maxBuffer: 10 * 1024 * 1024 }, (err, stdout) => {
         if (err) return send(res, 500, { error: 'Failed to generate Tally XML: ' + err.message });
         res.writeHead(200, {
           'Content-Type': 'application/xml; charset=utf-8',
@@ -5587,7 +5624,7 @@ const requestHandler = async (req, res) => {
     if (P === '/api/export/excel') {
       const { execFile } = require('child_process');
       const pyScript = path.join(__dirname, 'python', 'excel_reports.py');
-      return execFile('python', [pyScript, '--stdout'], { maxBuffer: 10 * 1024 * 1024 }, (err, stdout) => {
+      return execFile('python', [pyScript, '--stdout', '--db', DBF], { maxBuffer: 10 * 1024 * 1024 }, (err, stdout) => {
         if (err) return send(res, 500, { error: 'Failed to generate Excel report: ' + err.message });
         res.writeHead(200, {
           'Content-Type': 'application/vnd.ms-excel; charset=utf-8',
@@ -5600,7 +5637,7 @@ const requestHandler = async (req, res) => {
     if (P === '/api/analytics/spend') {
       const { execFile } = require('child_process');
       const pyScript = path.join(__dirname, 'python', 'spend_analytics.py');
-      return execFile('python', [pyScript, '--json'], { maxBuffer: 10 * 1024 * 1024 }, (err, stdout) => {
+      return execFile('python', [pyScript, '--json', '--db', DBF], { maxBuffer: 10 * 1024 * 1024 }, (err, stdout) => {
         if (err) return send(res, 500, { error: 'Failed to run spend analytics: ' + err.message });
         try {
           return send(res, 200, JSON.parse(stdout));
@@ -5698,8 +5735,12 @@ const requestHandler = async (req, res) => {
       return res.end(data);
     }
 
-    if (P === '/api/users' && M === 'GET') return send(res, 200, all('select id,username,name,email,role,active from users'));
+    if (P === '/api/users' && M === 'GET') {
+      if (!adm) throw E('Administrator privileges required.', 403);
+      return send(res, 200, all('select id,username,name,email,role,active from users'));
+    }
     if (P === '/api/users' && M === 'POST') {
+      if (!adm) throw E('Administrator privileges required.', 403);
       if (!ROLES[j.role] || !j.username || String(j.password || '').length < 8) {
         throw E('Valid username, system role, and 8+ character password are required.');
       }
@@ -5719,6 +5760,7 @@ const requestHandler = async (req, res) => {
     }
 
     if ((m = P.match(/^\/api\/users\/(\d+)$/)) && M === 'PUT') {
+      if (!adm) throw E('Administrator privileges required.', 403);
       const uTarget = one('select * from users where id=?', m[1]);
       if (!uTarget) throw E('User not found', 404);
       const role = (j.role && ROLES[j.role]) ? j.role : uTarget.role;
@@ -5747,11 +5789,13 @@ const requestHandler = async (req, res) => {
 
     if (P === '/api/backups' && M === 'GET') return send(res, 200, fs.readdirSync(BAK).filter(x => x.startsWith('backup-')).sort().reverse());
     if (P === '/api/backups' && M === 'POST') {
+      if (!adm) throw E('Administrator privileges required.', 403);
       const n = backup('manual');
       audit(u, null, 'Manual snapshot created: ' + n);
       return send(res, 200, { name: n });
     }
     if (P === '/api/restore' && M === 'POST') {
+      if (!adm) throw E('Administrator privileges required.', 403);
       restore(j.name);
       return send(res, 200, { ok: 1 });
     }

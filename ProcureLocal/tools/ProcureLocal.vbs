@@ -10,6 +10,9 @@ Dim sh, fs, d, f, txt, reg, m, port, http, i, serverReady, localApp, profileDir,
 Set sh = CreateObject("WScript.Shell")
 Set fs = CreateObject("Scripting.FileSystemObject")
 d = fs.GetParentFolderName(WScript.ScriptFullName)
+If fs.FileExists(fs.GetParentFolderName(d) & "\server.js") Then
+  d = fs.GetParentFolderName(d)
+End If
 sh.CurrentDirectory = d
 
 ' 1. Check if config.json exists

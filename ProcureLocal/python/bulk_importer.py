@@ -21,13 +21,19 @@ import sqlite3
 import datetime
 from pathlib import Path
 
-# Resolve base paths
+# Setup import path for config_helper
 SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT_DIR = SCRIPT_DIR.parent
-DB_PATH = ROOT_DIR / "DB" / "procure.db"
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
+try:
+    from config_helper import resolve_db_path
+except ImportError:
+    from python.config_helper import resolve_db_path
 
 def get_db_connection(db_path=None):
-    path = db_path or DB_PATH
+    path = resolve_db_path(db_path)
     if not os.path.exists(path):
         raise FileNotFoundError(f"ProcureLocal database not found at {path}")
     conn = sqlite3.connect(path)
@@ -223,15 +229,18 @@ def main():
     parser.add_argument("--generate-templates", action="store_true", help="Generate sample CSV templates")
     parser.add_argument("--vendors", type=str, help="Path to vendors CSV file to import")
     parser.add_argument("--items", type=str, help="Path to items CSV file to import")
+    parser.add_argument("--db", type=str, help="Path to custom procure.db database file")
 
     args = parser.parse_args()
+
+    conn = get_db_connection(args.db) if args.db else None
 
     if args.generate_templates:
         generate_sample_templates()
     elif args.vendors:
-        import_vendors_csv(args.vendors)
+        import_vendors_csv(args.vendors, conn=conn)
     elif args.items:
-        import_items_csv(args.items)
+        import_items_csv(args.items, conn=conn)
     else:
         parser.print_help()
 

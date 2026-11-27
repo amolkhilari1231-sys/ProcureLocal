@@ -10605,13 +10605,83 @@ const saveEditAssetAction = (assetId) => T(async () => {
   if (tab === 'asset_reg') renderAssetRegister(); else load();
 });
 
-const deleteAsset = (assetId) => T(async () => {
-  if (confirm("Are you sure you want to delete this Factory Asset from the register?")) {
-    await api("DELETE", `/api/assets/${assetId}`);
-    toast("Asset Record Deleted");
-    if (tab === 'asset_reg') renderAssetRegister(); else load();
+function toggleSelectAllAssets(checked) {
+  document.querySelectorAll('.asset-chk').forEach(c => c.checked = checked);
+  updateSelectedAssetsCount();
+}
+
+function updateSelectedAssetsCount() {
+  const count = document.querySelectorAll('.asset-chk:checked').length;
+  const btn = $('#btn_bulk_del_assets');
+  const span = $('#sel_asset_count');
+  if (span) span.textContent = count;
+  if (btn) btn.style.display = count > 0 ? 'inline-flex' : 'none';
+  const allChk = $('#chk_all_assets');
+  const allBoxes = document.querySelectorAll('.asset-chk');
+  if (allChk && allBoxes.length) {
+    allChk.checked = count === allBoxes.length;
   }
-});
+}
+
+const deleteAsset = (assetId) => {
+  const existingAssets = (window._allAssets && window._allAssets.length) ? window._allAssets : (D?.assets || []);
+  const ast = existingAssets.find(a => a.id === assetId) || { id: assetId, asset_code: `AST-${assetId}`, asset_name: 'Factory Asset' };
+  openSecurityDeleteModal({
+    title: "Delete Factory Fixed Asset",
+    entityType: "Factory Fixed Asset",
+    entityCode: ast.asset_code,
+    entityName: ast.asset_name,
+    details: [
+      { label: "Plant Location", value: ast.plant_location || 'Factory Floor' },
+      { label: "Serial No", value: ast.serial_no || '—' }
+    ],
+    warning: "This will permanently remove this equipment record from the Fixed Asset Register.",
+    actionButtonText: "🗑️ Delete Fixed Asset",
+    onExecute: async ({ confirm, password }) => {
+      await api("DELETE", `/api/assets/${assetId}`, { confirm, password });
+      toast("Asset record deleted ✔");
+      if (tab === 'asset_reg') renderAssetRegister(); else load();
+    }
+  });
+};
+
+function deleteSelectedAssets() {
+  const chks = Array.from(document.querySelectorAll('.asset-chk:checked')).map(c => +c.value);
+  if (!chks.length) return alert("No assets selected for deletion.");
+  openSecurityDeleteModal({
+    title: `Bulk Delete (${chks.length}) Selected Fixed Assets`,
+    entityType: "Bulk Asset Batch",
+    entityCode: `${chks.length} Assets Selected`,
+    warning: `This will permanently remove ${chks.length} selected fixed asset records from the register.`,
+    actionButtonText: `🗑️ Delete ${chks.length} Selected Assets`,
+    onExecute: async ({ confirm, password }) => {
+      for (const id of chks) {
+        await api("DELETE", `/api/assets/${id}`, { confirm, password });
+      }
+      toast(`${chks.length} Assets deleted successfully ✔`);
+      if (tab === 'asset_reg') renderAssetRegister(); else load();
+    }
+  });
+}
+
+function clearAllAssets() {
+  const existingAssets = (window._allAssets && window._allAssets.length) ? window._allAssets : (D?.assets || []);
+  if (!existingAssets.length) return alert("The Asset Register is already empty.");
+  openSecurityDeleteModal({
+    title: `Clear Entire Fixed Asset Register (${existingAssets.length} Records)`,
+    entityType: "All Fixed Assets",
+    entityCode: `Total: ${existingAssets.length} Assets`,
+    warning: "CAUTION: This will permanently delete ALL fixed assets from the register. This action cannot be undone.",
+    actionButtonText: `🗑️ Delete All ${existingAssets.length} Assets`,
+    onExecute: async ({ confirm, password }) => {
+      for (const a of existingAssets) {
+        await api("DELETE", `/api/assets/${a.id}`, { confirm, password });
+      }
+      toast(`All ${existingAssets.length} assets removed from register ✔`);
+      if (tab === 'asset_reg') renderAssetRegister(); else load();
+    }
+  });
+}
 
 // Close Requisition Modal
 function openCloseRequisitionModal() {
@@ -10889,6 +10959,168 @@ async function executeDeleteCatalogItem(cid) {
     }
   }
 }
+
+function openAddCatalogModal() {
+  const existing = document.getElementById('catalog_form_modal');
+  if (existing) existing.remove();
+
+  const categories = [...new Set(CAT.map(c => c.category).filter(Boolean))].sort();
+  const defaultCat = categories[0] || 'General';
+
+  const modal = document.createElement('div');
+  modal.className = 'modal-backdrop';
+  modal.id = 'catalog_form_modal';
+  modal.innerHTML = `
+    <div class="modal-card" style="max-width:560px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; border-bottom:1px solid var(--bd); padding-bottom:10px;">
+        <div>
+          <h3 style="margin:0; color:var(--pr);">📦 Add Master Catalog Item</h3>
+          <p style="margin:2px 0 0; font-size:12px; color:var(--tx-mut);">Define standardized item master specifications and benchmark rates</p>
+        </div>
+        <button class="btn s" onclick="$('#catalog_form_modal').remove()">✕</button>
+      </div>
+
+      <div class="f" style="margin-bottom:14px;">
+        <div>
+          <label>Item Code (Auto or Custom)</label>
+          <input id="cat_m_code" placeholder="e.g. ITM-0001 (Leave empty for auto)" style="font-family:monospace;">
+        </div>
+        <div>
+          <label>Item Name *</label>
+          <input id="cat_m_name" placeholder="e.g. Industrial Centrifugal Pump" required>
+        </div>
+        <div>
+          <label>Category</label>
+          <input id="cat_m_category" list="cat_cat_list" placeholder="e.g. Mechanical, Electrical, IT" value="${esc(defaultCat)}">
+          <datalist id="cat_cat_list">
+            ${categories.map(c => `<option value="${esc(c)}">`).join('')}
+          </datalist>
+        </div>
+        <div>
+          <label>Unit of Measure</label>
+          <input id="cat_m_unit" placeholder="e.g. NOS, SET, MTR, KG, LTR" value="NOS">
+        </div>
+        <div>
+          <label>HSN / SAC Code</label>
+          <input id="cat_m_hsn" placeholder="e.g. 84137010">
+        </div>
+        <div>
+          <label>CITPC Benchmark Rate (₹)</label>
+          <input id="cat_m_rate" type="number" step="0.01" placeholder="0.00">
+        </div>
+        <div style="grid-column:span 2;">
+          <label>Detailed Technical Specifications / Description</label>
+          <textarea id="cat_m_descr" rows="2" style="width:100%; font:inherit; padding:8px; border:1px solid var(--bd); border-radius:6px;" placeholder="Make, model, technical parameters, standard OEM warranty..."></textarea>
+        </div>
+      </div>
+
+      <div class="row" style="justify-content:flex-end; gap:8px;">
+        <button class="btn" onclick="$('#catalog_form_modal').remove()">Cancel</button>
+        <button class="btn p" onclick="saveAddCatalogItem()" style="font-weight:700;">💾 Save Catalog Item</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+const saveAddCatalogItem = () => T(async () => {
+  const name = ($('#cat_m_name')?.value || '').trim();
+  if (!name) return alert("Item Name is required.");
+  const code = ($('#cat_m_code')?.value || '').trim();
+  const category = ($('#cat_m_category')?.value || '').trim() || 'General';
+  const unit = ($('#cat_m_unit')?.value || '').trim() || 'NOS';
+  const hsn = ($('#cat_m_hsn')?.value || '').trim();
+  const citpc_rate = +($('#cat_m_rate')?.value || 0);
+  const descr = ($('#cat_m_descr')?.value || '').trim();
+
+  await api("POST", "/api/catalog", { code, name, descr, category, unit, hsn, citpc_rate });
+  $('#catalog_form_modal')?.remove();
+  toast(`Catalog item "${name}" created successfully ✔`);
+  await load();
+  if (tab === 'catalog') renderCatalogView();
+});
+
+function openEditCatalogModal(cid) {
+  const item = CAT.find(c => c.id === cid);
+  if (!item) return alert("Catalog item not found.");
+
+  const existing = document.getElementById('catalog_form_modal');
+  if (existing) existing.remove();
+
+  const categories = [...new Set(CAT.map(c => c.category).filter(Boolean))].sort();
+
+  const modal = document.createElement('div');
+  modal.className = 'modal-backdrop';
+  modal.id = 'catalog_form_modal';
+  modal.innerHTML = `
+    <div class="modal-card" style="max-width:560px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:14px; border-bottom:1px solid var(--bd); padding-bottom:10px;">
+        <div>
+          <h3 style="margin:0; color:var(--pr);">✏️ Edit Catalog Item (${esc(item.code)})</h3>
+          <p style="margin:2px 0 0; font-size:12px; color:var(--tx-mut);">Update item specifications, HSN code, and benchmark rate</p>
+        </div>
+        <button class="btn s" onclick="$('#catalog_form_modal').remove()">✕</button>
+      </div>
+
+      <div class="f" style="margin-bottom:14px;">
+        <div>
+          <label>Item Code</label>
+          <input id="cat_m_code" value="${esc(item.code)}" style="font-family:monospace;">
+        </div>
+        <div>
+          <label>Item Name *</label>
+          <input id="cat_m_name" value="${esc(item.name)}" required>
+        </div>
+        <div>
+          <label>Category</label>
+          <input id="cat_m_category" list="cat_cat_list" value="${esc(item.category || 'General')}">
+          <datalist id="cat_cat_list">
+            ${categories.map(c => `<option value="${esc(c)}">`).join('')}
+          </datalist>
+        </div>
+        <div>
+          <label>Unit of Measure</label>
+          <input id="cat_m_unit" value="${esc(item.unit || 'NOS')}">
+        </div>
+        <div>
+          <label>HSN / SAC Code</label>
+          <input id="cat_m_hsn" value="${esc(item.hsn || '')}">
+        </div>
+        <div>
+          <label>CITPC Benchmark Rate (₹)</label>
+          <input id="cat_m_rate" type="number" step="0.01" value="${item.citpc_rate || 0}">
+        </div>
+        <div style="grid-column:span 2;">
+          <label>Detailed Technical Specifications / Description</label>
+          <textarea id="cat_m_descr" rows="2" style="width:100%; font:inherit; padding:8px; border:1px solid var(--bd); border-radius:6px;">${esc(item.descr || '')}</textarea>
+        </div>
+      </div>
+
+      <div class="row" style="justify-content:flex-end; gap:8px;">
+        <button class="btn" onclick="$('#catalog_form_modal').remove()">Cancel</button>
+        <button class="btn p" onclick="saveEditCatalogItem(${item.id})" style="font-weight:700;">💾 Update Item</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+}
+
+const saveEditCatalogItem = (cid) => T(async () => {
+  const name = ($('#cat_m_name')?.value || '').trim();
+  if (!name) return alert("Item Name is required.");
+  const code = ($('#cat_m_code')?.value || '').trim();
+  const category = ($('#cat_m_category')?.value || '').trim() || 'General';
+  const unit = ($('#cat_m_unit')?.value || '').trim() || 'NOS';
+  const hsn = ($('#cat_m_hsn')?.value || '').trim();
+  const citpc_rate = +($('#cat_m_rate')?.value || 0);
+  const descr = ($('#cat_m_descr')?.value || '').trim();
+
+  await api("PUT", `/api/catalog/${cid}`, { code, name, descr, category, unit, hsn, citpc_rate });
+  $('#catalog_form_modal')?.remove();
+  toast(`Catalog item "${name}" updated successfully ✔`);
+  await load();
+  if (tab === 'catalog') renderCatalogView();
+});
 
 // --------------------------------------------------------------------------
 // VENDOR DIRECTORY & REQUISITION LIFECYCLE ACTIONS

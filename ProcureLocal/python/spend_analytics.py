@@ -20,13 +20,19 @@ import json
 import sqlite3
 from pathlib import Path
 
-# Resolve base paths
+# Setup import path for config_helper
 SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT_DIR = SCRIPT_DIR.parent
-DB_PATH = ROOT_DIR / "DB" / "procure.db"
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
+try:
+    from config_helper import resolve_db_path
+except ImportError:
+    from python.config_helper import resolve_db_path
 
 def get_db_connection(db_path=None):
-    path = db_path or DB_PATH
+    path = resolve_db_path(db_path)
     if not os.path.exists(path):
         raise FileNotFoundError(f"ProcureLocal database not found at {path}")
     conn = sqlite3.connect(path)
@@ -202,9 +208,11 @@ def main():
     parser = argparse.ArgumentParser(description="ProcureLocal Spend Analytics & Pareto Engine")
     parser.add_argument("--json", action="store_true", help="Output analytics as raw JSON")
     parser.add_argument("--export-file", type=str, help="Export JSON results to specified file")
+    parser.add_argument("--db", type=str, help="Path to custom procure.db database file")
 
     args = parser.parse_args()
-    data = compute_spend_analytics()
+    conn = get_db_connection(args.db) if args.db else None
+    data = compute_spend_analytics(conn=conn)
 
     if args.json:
         print(json.dumps(data, indent=2))

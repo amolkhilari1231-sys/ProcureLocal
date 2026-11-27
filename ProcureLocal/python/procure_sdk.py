@@ -27,22 +27,29 @@ import urllib.request
 import urllib.error
 from pathlib import Path
 
-# Resolve base paths
+# Setup import path for config_helper
 SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT_DIR = SCRIPT_DIR.parent
-DB_PATH = ROOT_DIR / "DB" / "procure.db"
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
+try:
+    from config_helper import resolve_db_path, get_server_port
+except ImportError:
+    from python.config_helper import resolve_db_path, get_server_port
 
 class ProcureSDK:
-    def __init__(self, mode="db", base_url="http://localhost:3001", db_path=None):
+    def __init__(self, mode="db", base_url=None, db_path=None):
         """
         Initializes the SDK.
         :param mode: 'db' for direct SQLite access, 'api' for HTTP REST API.
-        :param base_url: Base URL if running in 'api' mode.
+        :param base_url: Base URL if running in 'api' mode. Defaults to port from config.json.
         :param db_path: Optional custom path to SQLite database.
         """
         self.mode = mode
-        self.base_url = base_url.rstrip("/")
-        self.db_path = Path(db_path) if db_path else DB_PATH
+        port = get_server_port()
+        self.base_url = (base_url or f"http://localhost:{port}").rstrip("/")
+        self.db_path = resolve_db_path(db_path)
         self.token = None
 
         if self.mode == "db" and not os.path.exists(self.db_path):
@@ -57,7 +64,7 @@ class ProcureSDK:
         url = f"{self.base_url}{endpoint}"
         headers = {"Content-Type": "application/json"}
         if self.token:
-            headers["Cookie"] = f"t={self.token}"
+            headers["Cookie"] = f"sid={self.token}"
 
         body = json.dumps(data).encode("utf-8") if data else None
         req = urllib.request.Request(url, data=body, headers=headers, method=method)

@@ -22,13 +22,19 @@ import xml.etree.ElementTree as ET
 from xml.dom import minidom
 from pathlib import Path
 
-# Resolve base paths
+# Setup import path for config_helper
 SCRIPT_DIR = Path(__file__).resolve().parent
 ROOT_DIR = SCRIPT_DIR.parent
-DB_PATH = ROOT_DIR / "DB" / "procure.db"
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
+
+try:
+    from config_helper import resolve_db_path
+except ImportError:
+    from python.config_helper import resolve_db_path
 
 def get_db_connection(db_path=None):
-    path = db_path or DB_PATH
+    path = resolve_db_path(db_path)
     if not os.path.exists(path):
         raise FileNotFoundError(f"ProcureLocal database not found at {path}")
     conn = sqlite3.connect(path)
@@ -281,21 +287,23 @@ def main():
     parser.add_argument("--vendors", action="store_true", help="Export Vendor Master Ledgers to Tally XML")
     parser.add_argument("--stdout", action="store_true", help="Print XML to standard output (for streaming)")
     parser.add_argument("--out", type=str, help="Destination XML file path")
+    parser.add_argument("--db", type=str, help="Path to custom procure.db database file")
 
     args = parser.parse_args()
+    conn = get_db_connection(args.db) if args.db else None
 
     # Default action if no flag specified: export all POs
     xml_content = ""
     default_filename = "tally_export.xml"
 
     if args.vendors:
-        xml_content = export_vendors_tally_xml()
+        xml_content = export_vendors_tally_xml(conn=conn)
         default_filename = "tally_vendor_ledgers.xml"
     elif args.all_invoices:
-        xml_content = export_invoices_tally_xml()
+        xml_content = export_invoices_tally_xml(conn=conn)
         default_filename = "tally_invoices.xml"
     else:
-        xml_content = export_pos_tally_xml(po_id=args.po)
+        xml_content = export_pos_tally_xml(conn=conn, po_id=args.po)
         default_filename = "tally_purchase_orders.xml"
 
     if args.stdout:
